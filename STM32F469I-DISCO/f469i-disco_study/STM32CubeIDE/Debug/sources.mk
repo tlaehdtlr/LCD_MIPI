@@ -27,6 +27,7 @@ Application/User/FATFS/Target \
 Application/User/Startup \
 Application/User/USB_HOST/App \
 Application/User/USB_HOST/Target \
+BSP/Src \
 Drivers/CMSIS \
 Drivers/STM32F4xx_HAL_Driver \
 Middlewares/FatFs \

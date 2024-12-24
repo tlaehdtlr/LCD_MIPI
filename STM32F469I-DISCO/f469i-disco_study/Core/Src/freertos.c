@@ -25,7 +25,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stm32469i_discovery_lcd.h"
+// #include "sim_lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,7 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+// #define LAYER0_ADDRESS  (LCD_FB_START_ADDRESS)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -170,9 +171,41 @@ void StartDefaultTask(void const * argument)
   MX_USB_HOST_Init();
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+
+  HAL_GPIO_WritePin(GPIOD, LED2_Pin, GPIO_PIN_SET);
+
+  uint8_t  lcd_status = LCD_OK;
+
+  lcd_status = BSP_LCD_Init(); 
+  if (lcd_status)
+  {
+    HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
+  }
+  BSP_LCD_SelectLayer(0);
+  BSP_LCD_DisplayOn();
+
+
+  BSP_LCD_LayerDefaultInit(0, LAYER0_ADDRESS);   
+  BSP_LCD_SelectLayer(0);
+  BSP_LCD_Clear(LCD_COLOR_WHITE);
+  BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
+  BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
+  BSP_LCD_FillRect(0, 0, 800, 112);  
+  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+
+  BSP_LCD_DisplayStringAtLine(1, (uint8_t *)"          LCD_DSI_VideoMode_SingleBuffer");
+  BSP_LCD_SetFont(&Font16);
+  BSP_LCD_DisplayStringAtLine(4, (uint8_t *)"This example shows how to display images on LCD DSI using same buffer");
+  BSP_LCD_DisplayStringAtLine(5, (uint8_t *)"for display and for draw     ");   
+
+
+
+  HAL_GPIO_WritePin(GPIOD, LED3_Pin, GPIO_PIN_SET);
   for(;;)
   {
-    osDelay(1);
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    BSP_LCD_DisplayStringAtLine(2, (uint8_t *)"          Sim Donksik");
+    osDelay(1000);
   }
   /* USER CODE END StartDefaultTask */
 }

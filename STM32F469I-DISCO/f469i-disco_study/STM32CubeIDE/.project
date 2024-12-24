@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>BSP</name>
+			<type>2</type>
+			<location>C:/Users/2023851/Projects/LCD_MIPI/STM32F469I-DISCO/f469i-disco_study/BSP</location>
+		</link>
+		<link>
 			<name>f469i-disco_study.ioc</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/f469i-disco_study.ioc</locationURI>

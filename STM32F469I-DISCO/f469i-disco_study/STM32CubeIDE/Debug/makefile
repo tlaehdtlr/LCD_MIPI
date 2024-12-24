@@ -14,6 +14,7 @@ RM := rm -rf
 -include Middlewares/FatFs/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/subdir.mk
 -include Drivers/CMSIS/subdir.mk
+-include BSP/Src/subdir.mk
 -include Application/User/USB_HOST/Target/subdir.mk
 -include Application/User/USB_HOST/App/subdir.mk
 -include Application/User/Startup/subdir.mk
