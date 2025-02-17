@@ -111,7 +111,6 @@
      PE9   ------> FMC_D6_DA6
      PE11   ------> FMC_D8_DA8
      PE14   ------> FMC_D11_DA11
-     PB10   ------> USART3_TX
      PH8   ------> FMC_D16
      PH10   ------> FMC_D18
      PE7   ------> FMC_D4_DA4
@@ -119,7 +118,6 @@
      PE12   ------> FMC_D9_DA9
      PE15   ------> FMC_D12_DA12
      PE13   ------> FMC_D10_DA10
-     PB11   ------> USART3_RX
 */
 void MX_GPIO_Init(void)
 {
@@ -413,14 +411,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF13_DSI;
   HAL_GPIO_Init(DSI_TE_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PBPin PBPin */
-  GPIO_InitStruct.Pin = STLK_RX_Pin|STLK_TX_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = LCD_BL_CTRL_Pin;
