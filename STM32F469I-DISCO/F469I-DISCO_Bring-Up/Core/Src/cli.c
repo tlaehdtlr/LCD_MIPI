@@ -8,6 +8,7 @@ typedef struct
 } cli_cmd_t;
 
 static void help_func(uint8_t argc, void **argv);
+static void led_control(uint8_t argc, void **argv);
 
 const cli_cmd_t l_cli_cmds_t[] =
 {
@@ -17,9 +18,64 @@ const cli_cmd_t l_cli_cmds_t[] =
                 "
     },
     {
+        "led", led_control,
+        "usage) on/off [1~2]\r\n \
+                "
+    },
+    {
         (void *)0, (void *)0, (void *)0
     }
 };
+
+static void led_control(uint8_t argc, void **argv)
+{
+    char *command = argv[0];
+    char *arg1 = argv[0 + strlen(command)];
+    char *arg2 = argv[0 + strlen(command) + strlen(arg1)];
+
+    if (argc == 1)
+    {
+        for (int i = 0; l_cli_cmds_t[i].cmd_func != 0; i++)
+        {
+            if (strcmp(l_cli_cmds_t[i].cmd, command) == 0)
+            {
+                printf("[%s] \r\n %s \r\n", l_cli_cmds_t[i].cmd, l_cli_cmds_t[i].cmd_usage);
+                return;
+            }
+        }
+    }
+    else if (argc == 3)
+    {
+        if (strcmp(arg1, "on") == 0)
+        {
+            if (strcmp(arg2, "1") == 0)
+            {
+                HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+                return;
+            }
+            else if (strcmp(arg2, "2") == 0)
+            {
+                HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+                return;
+            }
+        }
+        else if (strcmp(arg1, "off") == 0)
+        {
+            if (strcmp(arg2, "1") == 0)
+            {
+                HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+                return;
+            }
+            else if (strcmp(arg2, "2") == 0)
+            {
+                HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+                return;
+            }
+        }
+    }
+    printf("\r\nNot registered command \r\n");
+    
+}
 
 static void help_func(uint8_t argc, void **argv)
 {
