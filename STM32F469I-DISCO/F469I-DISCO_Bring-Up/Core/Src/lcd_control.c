@@ -1,6 +1,9 @@
 #include "lcd_control.h"
 #include "nt35510.h"
 #include "stm32f4xx_hal.h"
+#include "vieworks_logo.h"
+
+static const uint32_t * my_image = vieworks_logo;
 
 
 static void color_write(uint8_t sector, uint32_t address, uint32_t color)
@@ -87,5 +90,5 @@ void lcd_control_init(void)
 
     NT35510_Init(NT35510_FORMAT_RGB888, LCD_ORIENTATION_LANDSCAPE);
 
-    ltdc_default_init(0, LAYER0_ADDRESS);
+    ltdc_default_init(0, *(uint32_t *)my_image);
 }
