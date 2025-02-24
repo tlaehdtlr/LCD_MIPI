@@ -1,4 +1,5 @@
 #include "cli.h"
+#include "lcd_control.h"
 
 typedef struct
 {
@@ -9,6 +10,7 @@ typedef struct
 
 static void help_func(uint8_t argc, void **argv);
 static void led_control(uint8_t argc, void **argv);
+static void lcd_control(uint8_t argc, void **argv);
 
 const cli_cmd_t l_cli_cmds_t[] =
 {
@@ -23,9 +25,82 @@ const cli_cmd_t l_cli_cmds_t[] =
                 "
     },
     {
+        "lcd", lcd_control,
+        "usage) err \r\n \
+                \r\t stop/start \r\n \
+                \r\t [r/g/b] [l,r]\r\n \
+                "
+    },
+    {
         (void *)0, (void *)0, (void *)0
     }
 };
+
+static void lcd_control(uint8_t argc, void **argv)
+{
+    char *command = argv[0];
+    char *arg1 = argv[0 + strlen(command)];
+    char *arg2 = argv[0 + strlen(command) + strlen(arg1)];
+
+    if (argc == 1)
+    {
+        for (int i = 0; l_cli_cmds_t[i].cmd_func != 0; i++)
+        {
+            if (strcmp(l_cli_cmds_t[i].cmd, command) == 0)
+            {
+                printf("[%s] \r\n %s \r\n", l_cli_cmds_t[i].cmd, l_cli_cmds_t[i].cmd_usage);
+                return;
+            }
+        }
+    }
+    else if (argc == 2)
+    {
+        if (strcmp(arg1, "err") == 0)
+        {
+            ltdc_get_err();
+            return ;
+        }
+        else if (strcmp(arg1, "start") == 0)
+        {
+            dsi_start(true);
+            return ;
+        }
+        else if (strcmp(arg1, "stop") == 0)
+        {
+            dsi_start(false);
+            return ;
+        }
+
+    }
+    else if (argc == 3)
+    {
+        LCD_CONTROL_COLOR color = eLCD_CONTROL_COLOR_R;            
+        if (strcmp(arg1, "r") == 0)
+        {
+            color = eLCD_CONTROL_COLOR_R;            
+        }
+        else if (strcmp(arg1, "g") == 0)
+        {
+            color = eLCD_CONTROL_COLOR_G;
+        }
+        else if (strcmp(arg1, "b") == 0)
+        {
+            color = eLCD_CONTROL_COLOR_B;
+        }
+
+        if (strcmp(arg2, "l") == 0)
+        {
+            lcd_control_change(color, true);
+            return;
+        }
+        else if (strcmp(arg2, "r") == 0)
+        {
+            lcd_control_change(color, false);
+            return;
+        }
+    }
+    printf("\r\nNot registered command \r\n");
+}
 
 static void led_control(uint8_t argc, void **argv)
 {

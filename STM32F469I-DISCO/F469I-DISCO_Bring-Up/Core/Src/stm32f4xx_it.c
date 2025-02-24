@@ -55,6 +55,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern DSI_HandleTypeDef hdsi;
+extern LTDC_HandleTypeDef hltdc;
 extern UART_HandleTypeDef huart3;
 /* USER CODE BEGIN EV */
 
@@ -210,6 +212,48 @@ void USART3_IRQHandler(void)
   /* USER CODE BEGIN USART3_IRQn 1 */
 
   /* USER CODE END USART3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles LTDC global interrupt.
+  */
+void LTDC_IRQHandler(void)
+{
+  /* USER CODE BEGIN LTDC_IRQn 0 */
+
+  /* USER CODE END LTDC_IRQn 0 */
+  HAL_LTDC_IRQHandler(&hltdc);
+  /* USER CODE BEGIN LTDC_IRQn 1 */
+
+  /* USER CODE END LTDC_IRQn 1 */
+}
+
+/**
+  * @brief This function handles LTDC global error interrupt.
+  */
+void LTDC_ER_IRQHandler(void)
+{
+  /* USER CODE BEGIN LTDC_ER_IRQn 0 */
+
+  /* USER CODE END LTDC_ER_IRQn 0 */
+  HAL_LTDC_IRQHandler(&hltdc);
+  /* USER CODE BEGIN LTDC_ER_IRQn 1 */
+
+  /* USER CODE END LTDC_ER_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DSI global interrupt.
+  */
+void DSI_IRQHandler(void)
+{
+  /* USER CODE BEGIN DSI_IRQn 0 */
+
+  /* USER CODE END DSI_IRQn 0 */
+  HAL_DSI_IRQHandler(&hdsi);
+  /* USER CODE BEGIN DSI_IRQn 1 */
+
+  /* USER CODE END DSI_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

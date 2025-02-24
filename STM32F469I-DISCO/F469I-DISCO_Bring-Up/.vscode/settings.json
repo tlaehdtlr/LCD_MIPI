@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "usart.h": "c"
+        "usart.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "otm8009a.h": "c",
+        "lcd_control.h": "c"
     }
 }

@@ -53,6 +53,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 F469I-DISCO_Bring-Up.list \
 
+OBJCOPY_HEX += \
+F469I-DISCO_Bring-Up.hex \
+
+OBJCOPY_BIN += \
+F469I-DISCO_Bring-Up.bin \
+
 
 # All Target
 all: main-build
@@ -76,12 +82,22 @@ F469I-DISCO_Bring-Up.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_
 	@echo 'Finished building: $@'
 	@echo ' '
 
+F469I-DISCO_Bring-Up.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "F469I-DISCO_Bring-Up.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+F469I-DISCO_Bring-Up.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "F469I-DISCO_Bring-Up.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) F469I-DISCO_Bring-Up.elf F469I-DISCO_Bring-Up.list F469I-DISCO_Bring-Up.map default.size.stdout
+	-$(RM) F469I-DISCO_Bring-Up.bin F469I-DISCO_Bring-Up.elf F469I-DISCO_Bring-Up.hex F469I-DISCO_Bring-Up.list F469I-DISCO_Bring-Up.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
