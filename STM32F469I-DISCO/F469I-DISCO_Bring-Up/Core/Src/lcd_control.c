@@ -4,9 +4,32 @@
 #include "vieworks_logo.h"
 #include "fmc.h"
 
+#define DMA2D_USE
+
 static const uint32_t * my_image = vieworks_logo;
 
+void lcd_control_draw_rectangle_value(uint32_t layer_index, void* p_dst, uint32_t x_size, uint32_t y_size, uint32_t off_line, uint32_t value)
+{
+  printf("[Not use] layer_index %ld, \r\n", layer_index);
+  hdma2d.Init.Mode = DMA2D_R2M;
+  hdma2d.Init.ColorMode    = DMA2D_OUTPUT_ARGB8888;
+  hdma2d.Init.OutputOffset = off_line;
+  if (HAL_DMA2D_Init(&hdma2d) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMA2D_ConfigLayer(&hdma2d, 1) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
+  printf("[lcd] 0x%08lx | 0x%08lx | %ld | %ld \r\n", value, (uint32_t)p_dst, x_size, y_size);
+  if (HAL_DMA2D_Start(&hdma2d, value, (uint32_t)p_dst, x_size, y_size) == HAL_OK)
+  {
+      /* Polling For DMA transfer */  
+      HAL_DMA2D_PollForTransfer(&hdma2d, 100);
+  }
+}
 
 static void color_write(uint8_t sector, uint32_t address, uint32_t color)
 {
@@ -45,8 +68,10 @@ static void color_write(uint8_t sector, uint32_t address, uint32_t color)
 
 void lcd_control_change_sdram(uint32_t color, uint8_t sector)
 {
-    uint32_t address_offset = SDRAM_ADDRESS;
+    uint32_t address_offset = SDRAM_ADDRESS; // hltdc.LayerCfg[layer_index].FBStartAdress;
     address_offset += (uint32_t)((800*(480/2)*(sector/2)+(800/2)*(sector%2))*4);
+
+#if !defined(DMA2D_USE)
     uint32_t address = 0;
     for (uint16_t y=0; y<240*4; y+=4)
     {
@@ -56,6 +81,9 @@ void lcd_control_change_sdram(uint32_t color, uint8_t sector)
             *(uint32_t *)address = color;
         }
     }
+#else
+    lcd_control_draw_rectangle_value(0, (uint32_t *)address_offset, 400, 240, 800 - 400, color);
+#endif
 }
 
 
@@ -107,11 +135,11 @@ void lcd_control_init(void)
 
     MX_FMC_Init();
 
-
     // ltdc_change_layer(0, *(uint32_t *)my_image);
     ltdc_change_layer(0, *(uint32_t *)my_image);
     lcd_control_change_sdram(LCD_COLOR_CYAN, 0);
     lcd_control_change_sdram(LCD_COLOR_MAGENTA, 1);
     lcd_control_change_sdram(LCD_COLOR_YELLOW, 2);
     lcd_control_change_sdram(LCD_COLOR_BLACK, 3);
+    ltdc_change_layer(0, SDRAM_ADDRESS);
 }

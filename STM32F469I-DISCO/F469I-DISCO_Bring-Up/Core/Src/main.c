@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma2d.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -87,13 +88,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART3_UART_Init();
+  MX_DMA2D_Init();
   /* USER CODE BEGIN 2 */
+  printf("\r\n\r\n ======= F469I-DISCO Bring-up Start [%s] ======= \r\n", FW_VERSION);
   lcd_control_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("\r\n\r\n ======= F469I-DISCO Bring-up Start [%s] ======= \r\n", FW_VERSION);
+  printf(">>> Init Success !!! \r\n");
   while (1)
   {
     /* USER CODE END WHILE */

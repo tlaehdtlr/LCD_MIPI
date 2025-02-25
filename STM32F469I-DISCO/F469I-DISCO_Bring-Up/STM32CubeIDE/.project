@@ -57,6 +57,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma2d.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.c</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma_ex.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c</locationURI>
@@ -150,6 +155,11 @@
 			<name>Application/User/Core/cli.c</name>
 			<type>1</type>
 			<location>C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/cli.c</location>
+		</link>
+		<link>
+			<name>Application/User/Core/dma2d.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/dma2d.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/Core/dsihost.c</name>

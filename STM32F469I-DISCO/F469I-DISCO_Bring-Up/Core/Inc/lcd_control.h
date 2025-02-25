@@ -4,6 +4,7 @@
 #include "main.h"
 #include "ltdc.h"
 #include "dsihost.h"
+#include "dma2d.h"
 
 #define LAYER0_ADDRESS              ((uint32_t)0x08020000)
 #define SDRAM_ADDRESS               ((uint32_t)0xC0000000)
@@ -60,4 +61,5 @@ typedef enum
 void lcd_control_init(void);
 void lcd_control_change_sdram(uint32_t color, uint8_t sector);
 void lcd_control_change_flash(uint32_t color, bool tmp);
+void lcd_control_draw_rectangle_value(uint32_t layer_index, void *p_dst, uint32_t x_size, uint32_t y_size, uint32_t off_line, uint32_t value);
 #endif /* __LCD_CONTROL_H__ */
