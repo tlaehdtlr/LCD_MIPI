@@ -204,7 +204,7 @@ void dsi_start(bool start)
   if(start)
   {
       HAL_DSI_Start(&(hdsi));
-      ltdc_default_init(0, LAYER0_ADDRESS);
+      ltdc_change_layer(0, LAYER0_ADDRESS);
   }
   else
   {

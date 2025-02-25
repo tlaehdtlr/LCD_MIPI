@@ -3,6 +3,9 @@
         "usart.h": "c",
         "stm32f4xx_hal.h": "c",
         "otm8009a.h": "c",
-        "lcd_control.h": "c"
+        "lcd_control.h": "c",
+        "dsihost.h": "c",
+        "ltdc.h": "c",
+        "stdlib.h": "c"
     }
 }

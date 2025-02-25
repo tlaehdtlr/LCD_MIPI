@@ -36,14 +36,13 @@ extern "C" {
 extern LTDC_HandleTypeDef hltdc;
 
 /* USER CODE BEGIN Private defines */
-#define LAYER0_ADDRESS               ((uint32_t)0x08020000)
 /* USER CODE END Private defines */
 
 void MX_LTDC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 void ltdc_get_err(void);
-void ltdc_default_init(uint16_t LayerIndex, uint32_t FB_Address);
+void ltdc_change_layer(uint16_t LayerIndex, uint32_t FB_Address);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

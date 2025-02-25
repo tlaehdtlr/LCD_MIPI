@@ -2,8 +2,10 @@
 #include "nt35510.h"
 #include "stm32f4xx_hal.h"
 #include "vieworks_logo.h"
+#include "fmc.h"
 
 static const uint32_t * my_image = vieworks_logo;
+
 
 
 static void color_write(uint8_t sector, uint32_t address, uint32_t color)
@@ -41,19 +43,32 @@ static void color_write(uint8_t sector, uint32_t address, uint32_t color)
     HAL_FLASH_Lock();
 }
 
-void lcd_control_change(LCD_CONTROL_COLOR color, bool tmp)
+void lcd_control_change_sdram(uint32_t color, uint8_t sector)
 {
-    uint32_t color_value = 0xFF000000;
-    color_value |= 0xFF<<(color*8);
-    if (tmp) // sector 5~11 (128K*7)
+    uint32_t address_offset = SDRAM_ADDRESS;
+    address_offset += (uint32_t)((800*(480/2)*(sector/2)+(800/2)*(sector%2))*4);
+    uint32_t address = 0;
+    for (uint16_t y=0; y<240*4; y+=4)
+    {
+        for (uint16_t x=0; x<400*4; x+=4)
+        {
+            address = address_offset + 800*y + x;
+            *(uint32_t *)address = color;
+        }
+    }
+}
+
+
+void lcd_control_change_flash(uint32_t color, bool tmp)
+{
+    if (!tmp) // sector 5~11 (128K*7)
     {
         uint32_t address_offset = 0x08020000;
         uint32_t address = 0;
-        for (int sector=0; sector<7; sector+=1)
-        // for (int sector=0; sector<1; sector+=1)
+        for (int sector=5; sector<7; sector+=1)
         {
             address = address_offset + sector*(0x400*128);
-            color_write(sector+5, address, color_value);
+            color_write(sector+5, address, color);
         }
     }
     else // sector 17~23 (128K*7)
@@ -63,7 +78,7 @@ void lcd_control_change(LCD_CONTROL_COLOR color, bool tmp)
         for (int sector=0; sector<7; sector+=1)
         {
             address = address_offset + sector*(0x400*128);
-            color_write(sector+17, address, color_value);
+            color_write(sector+17, address, color);
         }
     }
 }
@@ -90,5 +105,13 @@ void lcd_control_init(void)
 
     NT35510_Init(NT35510_FORMAT_RGB888, LCD_ORIENTATION_LANDSCAPE);
 
-    ltdc_default_init(0, *(uint32_t *)my_image);
+    MX_FMC_Init();
+
+
+    // ltdc_change_layer(0, *(uint32_t *)my_image);
+    ltdc_change_layer(0, *(uint32_t *)my_image);
+    lcd_control_change_sdram(LCD_COLOR_CYAN, 0);
+    lcd_control_change_sdram(LCD_COLOR_MAGENTA, 1);
+    lcd_control_change_sdram(LCD_COLOR_YELLOW, 2);
+    lcd_control_change_sdram(LCD_COLOR_BLACK, 3);
 }

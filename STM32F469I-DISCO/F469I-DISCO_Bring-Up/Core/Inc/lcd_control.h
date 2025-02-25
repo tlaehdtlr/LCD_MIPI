@@ -5,12 +5,20 @@
 #include "ltdc.h"
 #include "dsihost.h"
 
-typedef enum
-{
-    eLCD_CONTROL_COLOR_R = 0x02,
-    eLCD_CONTROL_COLOR_G = 0x01,
-    eLCD_CONTROL_COLOR_B = 0x00,
-} LCD_CONTROL_COLOR;
+#define LAYER0_ADDRESS              ((uint32_t)0x08020000)
+#define SDRAM_ADDRESS               ((uint32_t)0xC0000000)
+
+/**
+ * LCD Color
+ */
+#define LCD_COLOR_BLACK         ((uint32_t) 0xFF000000)
+#define LCD_COLOR_BLUE          ((uint32_t) 0xFF0000FF)
+#define LCD_COLOR_GREEN         ((uint32_t) 0xFF00FF00)
+#define LCD_COLOR_RED           ((uint32_t) 0xFFFF0000)
+#define LCD_COLOR_CYAN          ((uint32_t) 0xFF00FFFF)
+#define LCD_COLOR_MAGENTA       ((uint32_t) 0xFFFF00FF)
+#define LCD_COLOR_YELLOW        ((uint32_t) 0xFFFFFF00)
+#define LCD_COLOR_WHITE         ((uint32_t) 0xFFFFFFFF)
 
 typedef enum
 {
@@ -50,5 +58,6 @@ typedef enum
  */
 
 void lcd_control_init(void);
-void lcd_control_change(LCD_CONTROL_COLOR color, bool tmp);
+void lcd_control_change_sdram(uint32_t color, uint8_t sector);
+void lcd_control_change_flash(uint32_t color, bool tmp);
 #endif /* __LCD_CONTROL_H__ */

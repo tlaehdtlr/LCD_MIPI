@@ -7,6 +7,7 @@
 C_SRCS += \
 C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/cli.c \
 C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/dsihost.c \
+C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/fmc.c \
 C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/gpio.c \
 C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/lcd_control.c \
 C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/ltdc.c \
@@ -21,6 +22,7 @@ C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bri
 OBJS += \
 ./Application/User/Core/cli.o \
 ./Application/User/Core/dsihost.o \
+./Application/User/Core/fmc.o \
 ./Application/User/Core/gpio.o \
 ./Application/User/Core/lcd_control.o \
 ./Application/User/Core/ltdc.o \
@@ -35,6 +37,7 @@ OBJS += \
 C_DEPS += \
 ./Application/User/Core/cli.d \
 ./Application/User/Core/dsihost.d \
+./Application/User/Core/fmc.d \
 ./Application/User/Core/gpio.d \
 ./Application/User/Core/lcd_control.d \
 ./Application/User/Core/ltdc.d \
@@ -51,6 +54,8 @@ C_DEPS += \
 Application/User/Core/cli.o: C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/cli.c Application/User/Core/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_STM32469I_DISCO_REVC -DUSE_HAL_DRIVER -DSTM32F469xx -c -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Application/User/Core/dsihost.o: C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/dsihost.c Application/User/Core/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_STM32469I_DISCO_REVC -DUSE_HAL_DRIVER -DSTM32F469xx -c -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Application/User/Core/fmc.o: C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/fmc.c Application/User/Core/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_STM32469I_DISCO_REVC -DUSE_HAL_DRIVER -DSTM32F469xx -c -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Application/User/Core/gpio.o: C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/gpio.c Application/User/Core/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_STM32469I_DISCO_REVC -DUSE_HAL_DRIVER -DSTM32F469xx -c -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
@@ -74,7 +79,7 @@ Application/User/Core/usart.o: C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/S
 clean: clean-Application-2f-User-2f-Core
 
 clean-Application-2f-User-2f-Core:
-	-$(RM) ./Application/User/Core/cli.d ./Application/User/Core/cli.o ./Application/User/Core/cli.su ./Application/User/Core/dsihost.d ./Application/User/Core/dsihost.o ./Application/User/Core/dsihost.su ./Application/User/Core/gpio.d ./Application/User/Core/gpio.o ./Application/User/Core/gpio.su ./Application/User/Core/lcd_control.d ./Application/User/Core/lcd_control.o ./Application/User/Core/lcd_control.su ./Application/User/Core/ltdc.d ./Application/User/Core/ltdc.o ./Application/User/Core/ltdc.su ./Application/User/Core/main.d ./Application/User/Core/main.o ./Application/User/Core/main.su ./Application/User/Core/nt35510.d ./Application/User/Core/nt35510.o ./Application/User/Core/nt35510.su ./Application/User/Core/stm32f4xx_hal_msp.d ./Application/User/Core/stm32f4xx_hal_msp.o ./Application/User/Core/stm32f4xx_hal_msp.su ./Application/User/Core/stm32f4xx_it.d ./Application/User/Core/stm32f4xx_it.o ./Application/User/Core/stm32f4xx_it.su ./Application/User/Core/syscalls.d ./Application/User/Core/syscalls.o ./Application/User/Core/syscalls.su ./Application/User/Core/sysmem.d ./Application/User/Core/sysmem.o ./Application/User/Core/sysmem.su ./Application/User/Core/usart.d ./Application/User/Core/usart.o ./Application/User/Core/usart.su
+	-$(RM) ./Application/User/Core/cli.d ./Application/User/Core/cli.o ./Application/User/Core/cli.su ./Application/User/Core/dsihost.d ./Application/User/Core/dsihost.o ./Application/User/Core/dsihost.su ./Application/User/Core/fmc.d ./Application/User/Core/fmc.o ./Application/User/Core/fmc.su ./Application/User/Core/gpio.d ./Application/User/Core/gpio.o ./Application/User/Core/gpio.su ./Application/User/Core/lcd_control.d ./Application/User/Core/lcd_control.o ./Application/User/Core/lcd_control.su ./Application/User/Core/ltdc.d ./Application/User/Core/ltdc.o ./Application/User/Core/ltdc.su ./Application/User/Core/main.d ./Application/User/Core/main.o ./Application/User/Core/main.su ./Application/User/Core/nt35510.d ./Application/User/Core/nt35510.o ./Application/User/Core/nt35510.su ./Application/User/Core/stm32f4xx_hal_msp.d ./Application/User/Core/stm32f4xx_hal_msp.o ./Application/User/Core/stm32f4xx_hal_msp.su ./Application/User/Core/stm32f4xx_it.d ./Application/User/Core/stm32f4xx_it.o ./Application/User/Core/stm32f4xx_it.su ./Application/User/Core/syscalls.d ./Application/User/Core/syscalls.o ./Application/User/Core/syscalls.su ./Application/User/Core/sysmem.d ./Application/User/Core/sysmem.o ./Application/User/Core/sysmem.su ./Application/User/Core/usart.d ./Application/User/Core/usart.o ./Application/User/Core/usart.su
 
 .PHONY: clean-Application-2f-User-2f-Core
 

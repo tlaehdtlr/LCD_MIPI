@@ -1,5 +1,6 @@
 #include "cli.h"
 #include "lcd_control.h"
+#include <stdlib.h>
 
 typedef struct
 {
@@ -28,7 +29,9 @@ const cli_cmd_t l_cli_cmds_t[] =
         "lcd", lcd_control,
         "usage) err \r\n \
                 \r\t stop/start \r\n \
-                \r\t [r/g/b] [l,r]\r\n \
+                \r\t ch int [1,2] [r,g,b]\r\n \
+                \r\t    ext [1~4] [r,g,b]\r\n \
+                \r\t layer int/ext\r\n \
                 "
     },
     {
@@ -41,6 +44,8 @@ static void lcd_control(uint8_t argc, void **argv)
     char *command = argv[0];
     char *arg1 = argv[0 + strlen(command)];
     char *arg2 = argv[0 + strlen(command) + strlen(arg1)];
+    char *arg3 = argv[0 + strlen(command) + strlen(arg1) + strlen(arg2)];
+    char *arg4 = argv[0 + strlen(command) + strlen(arg1) + strlen(arg2) + strlen(arg3)];
 
     if (argc == 1)
     {
@@ -74,29 +79,71 @@ static void lcd_control(uint8_t argc, void **argv)
     }
     else if (argc == 3)
     {
-        LCD_CONTROL_COLOR color = eLCD_CONTROL_COLOR_R;            
-        if (strcmp(arg1, "r") == 0)
+        if (strcmp(arg1, "layer") == 0)
         {
-            color = eLCD_CONTROL_COLOR_R;            
-        }
-        else if (strcmp(arg1, "g") == 0)
-        {
-            color = eLCD_CONTROL_COLOR_G;
-        }
-        else if (strcmp(arg1, "b") == 0)
-        {
-            color = eLCD_CONTROL_COLOR_B;
+            if (strcmp(arg2, "int") == 0)
+            {
+                ltdc_change_layer(0, LAYER0_ADDRESS);
+                return;
+            }
+            else if (strcmp(arg2, "ext") == 0)
+            {
+                ltdc_change_layer(0, SDRAM_ADDRESS);
+                return;
+            }
         }
 
-        if (strcmp(arg2, "l") == 0)
+    }
+    else if (argc == 5)
+    {
+        if (strcmp(arg1, "ch") == 0)
         {
-            lcd_control_change(color, true);
-            return;
-        }
-        else if (strcmp(arg2, "r") == 0)
-        {
-            lcd_control_change(color, false);
-            return;
+            uint8_t sector = 0;
+            if (strcmp(arg2, "int") == 0)
+            {
+                sector = atoi(arg3) - 1;
+                if (sector <= 1)
+                {
+                    if (strcmp(arg4, "r") == 0)
+                    {
+                        lcd_control_change_flash(LCD_COLOR_RED, sector);
+                        return ;
+                    }
+                    else if (strcmp(arg4, "g") == 0)
+                    {
+                        lcd_control_change_flash(LCD_COLOR_GREEN, sector);
+                        return ;
+                    }
+                    else if (strcmp(arg4, "b") == 0)
+                    {
+                        lcd_control_change_flash(LCD_COLOR_BLUE, sector);
+                        return ;
+                    }
+                }
+            }
+            else if (strcmp(arg2, "ext") == 0)
+            {
+                sector = atoi(arg3) - 1;
+                if (sector <= 3)
+                {
+                    if (strcmp(arg4, "r") == 0)
+                    {
+                        lcd_control_change_sdram(LCD_COLOR_RED, sector);
+                        return ;
+                    }
+                    else if (strcmp(arg4, "g") == 0)
+                    {
+                        lcd_control_change_sdram(LCD_COLOR_GREEN, sector);
+                        return ;
+                    }
+                    else if (strcmp(arg4, "b") == 0)
+                    {
+                        lcd_control_change_sdram(LCD_COLOR_BLUE, sector);
+                        return ;
+                    }
+                }
+                
+            }
         }
     }
     printf("\r\nNot registered command \r\n");

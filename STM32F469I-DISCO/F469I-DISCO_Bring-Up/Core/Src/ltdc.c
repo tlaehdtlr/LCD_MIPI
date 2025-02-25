@@ -140,7 +140,7 @@ void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* ltdcHandle)
 }
 
 /* USER CODE BEGIN 1 */
-void ltdc_default_init(uint16_t LayerIndex, uint32_t FB_Address)
+void ltdc_change_layer(uint16_t LayerIndex, uint32_t FB_Address)
 {
     LTDC_LayerCfgTypeDef  Layercfg;
 

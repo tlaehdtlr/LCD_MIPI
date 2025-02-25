@@ -122,6 +122,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_sdram.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.c</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</locationURI>
@@ -137,6 +142,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_fmc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/Core/cli.c</name>
 			<type>1</type>
 			<location>C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/cli.c</location>
@@ -145,6 +155,11 @@
 			<name>Application/User/Core/dsihost.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/dsihost.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/fmc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/fmc.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/Core/gpio.c</name>

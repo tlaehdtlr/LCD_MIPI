@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    dsihost.h
-  * @brief   This file contains all the function prototypes for
-  *          the dsihost.c file
+  * File Name          : FMC.h
+  * Description        : This file provides code for the configuration
+  *                      of the FMC peripheral.
   ******************************************************************************
   * @attention
   *
@@ -18,36 +18,42 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __DSIHOST_H__
-#define __DSIHOST_H__
-
+#ifndef __FMC_H
+#define __FMC_H
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-#include "ltdc.h"
-#include "lcd_control.h"
+
 /* USER CODE END Includes */
 
-extern DSI_HandleTypeDef hdsi;
+extern SDRAM_HandleTypeDef hsdram1;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-void MX_DSIHOST_DSI_Init(void);
+void MX_FMC_Init(void);
+void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef* hsdram);
+void HAL_SDRAM_MspDeInit(SDRAM_HandleTypeDef* hsdram);
 
 /* USER CODE BEGIN Prototypes */
-void dsi_start(bool start);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
+#endif /*__FMC_H */
 
-#endif /* __DSIHOST_H__ */
+/**
+  * @}
+  */
 
+/**
+  * @}
+  */
