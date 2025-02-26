@@ -97,6 +97,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_i2c.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_i2c_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_ltdc.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.c</locationURI>
@@ -172,9 +182,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/fmc.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/Core/ft6x06.c</name>
+			<type>1</type>
+			<location>C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/ft6x06.c</location>
+		</link>
+		<link>
 			<name>Application/User/Core/gpio.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/gpio.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/i2c.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/i2c.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/Core/lcd_control.c</name>
@@ -205,6 +225,11 @@
 			<name>Application/User/Core/stm32f4xx_it.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32f4xx_it.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/touch_screen.c</name>
+			<type>1</type>
+			<location>C:/Users/2023851/Projects/Vieworks_SIM/LCD_MIPI/STM32F469I-DISCO/F469I-DISCO_Bring-Up/Core/Src/touch_screen.c</location>
 		</link>
 		<link>
 			<name>Application/User/Core/usart.c</name>

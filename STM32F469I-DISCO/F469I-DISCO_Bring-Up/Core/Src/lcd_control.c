@@ -10,7 +10,6 @@ static const uint32_t * my_image = vieworks_logo;
 
 void lcd_control_draw_rectangle_value(uint32_t layer_index, void* p_dst, uint32_t x_size, uint32_t y_size, uint32_t off_line, uint32_t value)
 {
-  printf("[Not use] layer_index %ld, \r\n", layer_index);
   hdma2d.Init.Mode = DMA2D_R2M;
   hdma2d.Init.ColorMode    = DMA2D_OUTPUT_ARGB8888;
   hdma2d.Init.OutputOffset = off_line;
@@ -23,7 +22,6 @@ void lcd_control_draw_rectangle_value(uint32_t layer_index, void* p_dst, uint32_
     Error_Handler();
   }
 
-  printf("[lcd] 0x%08lx | 0x%08lx | %ld | %ld \r\n", value, (uint32_t)p_dst, x_size, y_size);
   if (HAL_DMA2D_Start(&hdma2d, value, (uint32_t)p_dst, x_size, y_size) == HAL_OK)
   {
       /* Polling For DMA transfer */  

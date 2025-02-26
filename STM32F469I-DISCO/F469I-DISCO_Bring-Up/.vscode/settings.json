@@ -6,6 +6,7 @@
         "lcd_control.h": "c",
         "dsihost.h": "c",
         "ltdc.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "nt35510.h": "c"
     }
 }

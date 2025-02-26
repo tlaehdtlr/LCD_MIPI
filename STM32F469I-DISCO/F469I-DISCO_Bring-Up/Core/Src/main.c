@@ -19,12 +19,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma2d.h"
+#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lcd_control.h"
+#include "touch_screen.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,9 +91,15 @@ int main(void)
   MX_GPIO_Init();
   MX_USART3_UART_Init();
   MX_DMA2D_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   printf("\r\n\r\n ======= F469I-DISCO Bring-up Start [%s] ======= \r\n", FW_VERSION);
   lcd_control_init();
+  HAL_Delay(1000);
+  if (ts_init(800, 400))
+  {
+    printf("TS Init Fail \r\n");
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,6 +111,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     uart_check_cmd_recv();
+    ts_process();
     HAL_Delay(1);
   }
   /* USER CODE END 3 */
