@@ -4,6 +4,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "ft6x06.h"
+#include "lcd_control.h"
 
 #define TS_MAX_NB_TOUCH                 ((uint32_t) FT6206_MAX_DETECTABLE_TOUCH)
 

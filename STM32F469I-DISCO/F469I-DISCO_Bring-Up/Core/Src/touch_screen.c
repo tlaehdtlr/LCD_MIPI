@@ -20,6 +20,7 @@ void ts_process(void)
             ts_state.touchX[0] = ts_state_new.touchX[0];
             ts_state.touchY[0] = ts_state_new.touchY[0];
             printf("Touch: [%d, %d] \r\n", ts_state.touchX[0], ts_state.touchY[0]);
+            lcd_change_rect_color(ts_state.touchX[0], ts_state.touchY[0]);
         }
     }
 }

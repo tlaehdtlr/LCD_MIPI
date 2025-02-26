@@ -5,8 +5,75 @@
 #include "fmc.h"
 
 #define DMA2D_USE
+#define LCD_RECTANGLE_NUM   4
 
+typedef enum
+{
+    COLOR_STEP_BLACK = 0,
+    COLOR_STEP_BLUE,
+    COLOR_STEP_GREEN,
+    COLOR_STEP_RED,
+    COLOR_STEP_CYAN,
+    COLOR_STEP_MAGENTA,
+    COLOR_STEP_YELLOW,
+    COLOR_STEP_WHITE,
+    COLOR_STEP_MAX
+} COLOR_STEP;
+
+static COLOR_STEP color_rectangles[LCD_RECTANGLE_NUM] = {COLOR_STEP_CYAN, COLOR_STEP_MAGENTA, COLOR_STEP_YELLOW, COLOR_STEP_BLACK};
+static const uint32_t colors[COLOR_STEP_MAX] = 
+{
+    LCD_COLOR_BLACK  ,
+    LCD_COLOR_BLUE   ,
+    LCD_COLOR_GREEN  ,
+    LCD_COLOR_RED    ,
+    LCD_COLOR_CYAN   ,
+    LCD_COLOR_MAGENTA,
+    LCD_COLOR_YELLOW ,
+    LCD_COLOR_WHITE  ,
+};
 static const uint32_t * my_image = vieworks_logo;
+
+void lcd_change_rect_color(uint16_t touch_x, uint16_t touch_y)
+{
+    uint8_t rect = 0xff;
+    if (touch_x < 400)
+    {
+        if (touch_y < 240)
+        {
+            rect = 0;
+        }
+        else
+        {
+            rect = 2;
+        }
+    }
+    else
+    {
+        if (touch_y < 240)
+        {
+            rect = 1;
+        }
+        else
+        {
+            rect = 3;
+        }
+    }
+
+    if (rect != 0xff)
+    {
+        uint32_t color = LCD_COLOR_BLACK;
+        if (++color_rectangles[rect] == COLOR_STEP_MAX)
+        {
+            color_rectangles[rect] = COLOR_STEP_BLACK;
+        }
+        else
+        {
+            color = colors[color_rectangles[rect]];
+        }
+        lcd_control_change_sdram(color, rect);
+    }
+}
 
 void lcd_control_draw_rectangle_value(uint32_t layer_index, void* p_dst, uint32_t x_size, uint32_t y_size, uint32_t off_line, uint32_t value)
 {
